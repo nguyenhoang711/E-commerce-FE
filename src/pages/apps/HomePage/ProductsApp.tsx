@@ -1,10 +1,4 @@
 import { Link } from 'react-router-dom'
-
-//image
-import Img1 from '@/assets/images/small/small-1.jpg'
-import Img2 from '@/assets/images/small/small-2.jpg'
-import Img3 from '@/assets/images/small/small-3.jpg'
-import Img4 from '@/assets/images/small/small-4.jpg'
 import { Product } from './data'
 
 const ProductsPart = ({ products }: { products: Product[] }) => {

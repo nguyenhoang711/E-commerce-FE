@@ -3,7 +3,7 @@ import LeftPanel from './LeftPanel'
 import { useViewPort } from '../../../hooks'
 
 // components
-import { PageBreadcrumb } from '../../../components'
+import { FormInput, PageBreadcrumb } from '../../../components'
 import { OffcanvasLayout } from '../../../components/HeadlessUI'
 import { products } from './data'
 import ProductsPart from './ProductsApp'
@@ -20,44 +20,36 @@ const ProductApp = () => {
 	return (
 		<>
 			<PageBreadcrumb title="Product manager" subName="Apps" />
-			<div className="relative lg:overflow-visible overflow-hidden">
-
-			</div>
 			<div className="lg:flex gap-4">
 				{width >= 1024 ? (
 					<div className="lg:block hidden inset-y-0 start-0 transform h-ful min-h-full min-w-72 lg:z-0 z-50 fixed lg:static lg:translate-x-0 -translate-x-full transition-all duration-300 lg:rtl:-translate-x-0 rtl:translate-x-full" tabIndex={-1}>
 						<LeftPanel />
 					</div>
 				) : (
-					<OffcanvasLayout open={leftPanelOpen} toggleOffcanvas={handleLeftPanel} placement="start" sizeClassName="w-64 max-w-[16rem]">
-						<LeftPanel />
-					</OffcanvasLayout>
+					<LeftPanel />
 				)}
 
 				<div className="card p-6 w-full">
 					<div className="flex flex-wrap justify-between items-center gap-4">
 						<div className="flex items-center gap-4">
-							<div className="lg:hidden block">
-								<button className="inline-flex items-center justify-center text-gray-700 border border-gray-200 rounded hover:bg-slate-100 dark:text-gray-400 hover:dark:bg-gray-800 dark:border-gray-600 transition h-9 w-9 duration-100" onClick={handleLeftPanel}>
-									<div className="ri-menu-2-fill text-lg"></div>
-								</button>
-							</div>
-							<form>
+							<form className='flex'>
 								<div className="relative flex rounded-md">
-									<input type="text" id="trailing-button-add-on-with-icon-and-button" name="trailing-button-add-on-with-icon-and-button" className="form-input bg-slate-100 border-0 ps-8 dark:bg-slate-700" placeholder="Search files..." />
-									<div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3">
+								<input type="text" id="trailing-button-add-on-with-icon-and-button" name="trailing-button-add-on-with-icon-and-button" className="form-input form-input-light ps-9" placeholder="Tìm kiếm theo tên quần áo" />
+								<div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3">
 										<i className="ri-search-line"></i>
 									</div>
 								</div>
+								<FormInput name="select" type="select" className="form-select ml-3" labelClassName="mb-2">
+									<option defaultValue="selected">Sắp xếp</option>
+									<option>Theo giá tiền</option>
+									<option>Theo tên</option>
+								</FormInput>
+								<FormInput name="hien-thi" type="select" className="form-select ml-6" labelClassName="mb-2">
+									<option defaultValue="selected">Hiển thị 6</option>
+									<option>Hiển thị 12</option>
+									<option>Hiển thị 18</option>
+								</FormInput>
 							</form>
-						</div>
-						<div>
-							<button type="submit" className="btn btn-sm bg-light dark:bg-slate-700">
-								<i className="ri-list-check text-sm"></i>
-							</button>
-							<button type="submit" className="btn btn-sm">
-								<i className="ri-grid-fill text-sm"></i>
-							</button>
 						</div>
 					</div>
 
