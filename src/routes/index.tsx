@@ -35,6 +35,7 @@ const TasksList = React.lazy(() => import('../pages/apps/Tasks/TasksList/'))
 const TasksDetails = React.lazy(() => import('../pages/apps/Tasks/TasksDetails/'))
 const KanbanApp = React.lazy(() => import('../pages/apps/Kanban/'))
 const FileManagerApp = React.lazy(() => import('../pages/apps/FileManager/'))
+const ProductApp= React.lazy(() => import('../pages/apps/HomePage/'))
 
 // pages
 const ProfilePages = React.lazy(() => import('../pages/other/Profile/'))
@@ -250,7 +251,16 @@ const fileAppRoutes: RoutesProps = {
 	header: 'Apps',
 }
 
-const appRoutes = [calendarAppRoutes, chatAppRoutes, emailAppRoutes, tasksAppRoutes, kanbanAppRoutes, fileAppRoutes]
+const productsAppRoutes: RoutesProps = {
+	path: '/apps/products-manager',
+	name: 'File Manager',
+	route: PrivateRoute,
+	roles: ['Admin'],
+	icon: 'filemanager',
+	element: <ProductApp />,
+	header: 'Apps',
+}
+const appRoutes = [calendarAppRoutes, chatAppRoutes, emailAppRoutes, tasksAppRoutes, kanbanAppRoutes, fileAppRoutes, productsAppRoutes]
 
 // pages
 const customPagesRoutes = {
@@ -840,4 +850,4 @@ const publicRoutes = [...authRoutes, ...otherPublicRoutes]
 
 const authProtectedFlattenRoutes = flattenRoutes([...authProtectedRoutes])
 const publicProtectedFlattenRoutes = flattenRoutes([...publicRoutes])
-export { publicRoutes, authProtectedRoutes, authProtectedFlattenRoutes, publicProtectedFlattenRoutes }
+export { publicRoutes, authProtectedRoutes, authProtectedFlattenRoutes, publicProtectedFlattenRoutes}
