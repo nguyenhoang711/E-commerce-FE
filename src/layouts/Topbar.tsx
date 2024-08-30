@@ -138,7 +138,7 @@ const Topbar = () => {
 				showLeftSideBarBackdrop()
 				HTMLTag.classList.add('sidenav-enable')
 			} else {
-				dispatch(changeSideBarType(SideBarType.LEFT_SIDEBAR_TYPE_SMALL))
+				dispatch(changeSideBarType(SideBarType.LEFT_SIDEBAR_TYPE_HIDDEN))
 			}
 		} else if (sideBarType === SideBarType.LEFT_SIDEBAR_TYPE_SMALL || sideBarType === SideBarType.LEFT_SIDEBAR_TYPE_HIDDEN) {
 			dispatch(changeSideBarType(SideBarType.LEFT_SIDEBAR_TYPE_DEFAULT))
@@ -146,7 +146,7 @@ const Topbar = () => {
 			showLeftSideBarBackdrop()
 			HTMLTag.classList.add('sidenav-enable')
 		} else {
-			dispatch(changeSideBarType(SideBarType.LEFT_SIDEBAR_TYPE_SMALL))
+			dispatch(changeSideBarType(SideBarType.LEFT_SIDEBAR_TYPE_HIDDEN))
 		}
 	}
 

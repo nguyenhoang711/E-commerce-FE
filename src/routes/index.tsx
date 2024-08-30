@@ -36,6 +36,7 @@ const TasksDetails = React.lazy(() => import('../pages/apps/Tasks/TasksDetails/'
 const KanbanApp = React.lazy(() => import('../pages/apps/Kanban/'))
 const FileManagerApp = React.lazy(() => import('../pages/apps/FileManager/'))
 const ProductApp= React.lazy(() => import('../pages/apps/HomePage/'))
+const ProductDetail= React.lazy(() => import('../pages/apps/ProductDetail/'))
 
 // pages
 const ProfilePages = React.lazy(() => import('../pages/other/Profile/'))
@@ -253,14 +254,24 @@ const fileAppRoutes: RoutesProps = {
 
 const productsAppRoutes: RoutesProps = {
 	path: '/apps/products-manager',
-	name: 'File Manager',
+	name: 'Product Manager',
 	route: PrivateRoute,
 	roles: ['Admin'],
 	icon: 'filemanager',
 	element: <ProductApp />,
 	header: 'Apps',
 }
-const appRoutes = [calendarAppRoutes, chatAppRoutes, emailAppRoutes, tasksAppRoutes, kanbanAppRoutes, fileAppRoutes, productsAppRoutes]
+
+const productDetailAppRoutes: RoutesProps = {
+	path: '/apps/products/detail',
+	name: 'Product Detail',
+	route: PrivateRoute,
+	roles: ['Admin'],
+	icon: 'filemanager',
+	element: <ProductDetail />,
+	header: 'Apps',
+}
+const appRoutes = [calendarAppRoutes, chatAppRoutes, emailAppRoutes, tasksAppRoutes, kanbanAppRoutes, fileAppRoutes, productsAppRoutes, productDetailAppRoutes]
 
 // pages
 const customPagesRoutes = {
