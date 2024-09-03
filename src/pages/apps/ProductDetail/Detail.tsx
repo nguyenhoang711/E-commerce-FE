@@ -107,7 +107,7 @@ interface ChatAreaProps {
 	chatToggler: () => void
 }
 
-const ChatArea = ({ selectedUser, chatToggler }: ChatAreaProps) => {
+const Detail = ({ selectedUser, chatToggler }: ChatAreaProps) => {
 	const [userMessages, setUserMessages] = useState<ChatMessage[]>([])
 
 	const [toUser] = useState<ChatUser>({
@@ -196,7 +196,7 @@ const ChatArea = ({ selectedUser, chatToggler }: ChatAreaProps) => {
 
 	return (
 		<>
-			<div className="card w-full lg:overflow-hidden">
+			<div className="card w-3/4 lg:overflow-hidden">
 				<div className="sticky top-0 start-0 end-0 lg:static py-3 px-6 border-b border-light dark:border-gray-600 z-10 bg-white">
 					<div className="flex flex-wrap justify-between gap-3 py-1.5">
 						<div className="sm:w-7/12">
@@ -271,4 +271,4 @@ const ChatArea = ({ selectedUser, chatToggler }: ChatAreaProps) => {
 	)
 }
 
-export default ChatArea
+export default Detail

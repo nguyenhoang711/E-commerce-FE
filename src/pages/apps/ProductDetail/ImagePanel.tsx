@@ -40,7 +40,7 @@ const ChatUsers = ({ onUserSelect, chatToggler }: ChatUsersProps) => {
 	}
 
 	return (
-		<div className="card lg:min-w-96">
+		<div className="card sm:min-w-40">
 			<div className="p-6">
 				<div className="flex justify-between mb-6">
 					<div className="flex items-center gap-3">

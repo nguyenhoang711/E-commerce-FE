@@ -10,7 +10,7 @@ import { ChatUser, users } from './data'
 import { OffcanvasLayout } from '../../../components/HeadlessUI'
 import { useViewPort } from '../../../hooks'
 
-const ChatApp = () => {
+const ProductDetail = () => {
 	const [selectedUser, setSelectedUser] = useState<ChatUser>(users[1])
 
 	/**
@@ -30,7 +30,7 @@ const ChatApp = () => {
 		<>
 			<PageBreadcrumb title="Chat" subName="Apps" />
 			<div className="relative lg:overflow-visible overflow-hidden">
-				<div className="lg:flex gap-4">
+				<div className="lg:flex gap-6">
 					<ImagePanel onUserSelect={onUserChange} chatToggler={handleChatAreaPanel} />
 
 					{width >= 1024 ? (
@@ -46,4 +46,4 @@ const ChatApp = () => {
 	)
 }
 
-export default ChatApp
+export default ProductDetail

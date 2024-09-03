@@ -23,6 +23,7 @@ import AppsDropDown from '../components/AppsDropDown'
 import MaximizeScreen from '../components/MaximizeScreen'
 import ProfileDropDown from '../components/ProfileDropDown'
 import LogoBox from '../components/LogoBox'
+import NavigationBar from '@/components/NavigationBar'
 
 export interface NotificationItem {
 	id: number
@@ -218,13 +219,15 @@ const Topbar = () => {
 					</span>
 				</button>
 
-				<div className="relative hidden lg:block">
-					<TopBarSearch />
+				{/* <div className="relative hidden lg:block"> */}
+				<div className="relative ms-auto">
+					{/* <TopBarSearch /> */}
+					<NavigationBar />
 				</div>
 
-				<div className="relative ms-auto">
+				{/* <div className="relative ms-auto">
 					<LanguageDropdown />
-				</div>
+				</div> */}
 
 				<div className="relative lg:flex hidden">
 					<NotificationDropdown notifications={notifications} />
@@ -234,14 +237,14 @@ const Topbar = () => {
 					<AppsDropDown />
 				</div>
 
-				<div className="flex">
+				{/* <div className="flex">
 					<button type="button" className="nav-link p-2" onClick={handleRightSideBar}>
 						<span className="sr-only">Customization</span>
 						<span className="flex items-center justify-center">
 							<i className="ri-settings-3-line text-2xl"></i>
 						</span>
 					</button>
-				</div>
+				</div> */}
 
 				<div className="lg:flex hidden">
 					<button id="light-dark-mode" type="button" className="nav-link p-2" onClick={toggleDarkMode}>
