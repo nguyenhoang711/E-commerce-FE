@@ -61,7 +61,9 @@ function* logout(): SagaIterator {
 
 function* signup({ payload: { fullname, email, password } }: UserData): SagaIterator {
 	try {
+		console.log(fullname, email, password);
 		const response = yield call(signupApi, { fullname, email, password })
+		
 		const user = response.data
 		// api.setLoggedInUser(user);
 		// setAuthorization(user['token']);

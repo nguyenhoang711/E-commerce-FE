@@ -4,7 +4,7 @@ const api = new APICore()
 
 // account
 function login(params: { username: string; password: string }) {
-	const baseUrl = '/login/'
+	const baseUrl = '/api/v1/login/'
 	return api.create(`${baseUrl}`, params)
 }
 
@@ -14,7 +14,7 @@ function logout() {
 }
 
 function signup(params: { fullname: string; email: string; password: string }) {
-	const baseUrl = '/register/'
+	const baseUrl = '/api/v1/user/register'
 	return api.create(`${baseUrl}`, params)
 }
 

@@ -6,7 +6,9 @@ import path from 'path'
 export default defineConfig({
   base: '',
   plugins: [react(),],
-  define: { 'process.env': {} },
+  define: { 'process.env': {
+    REACT_APP_API_CORE : 'http://localhost:3055'
+  } },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),

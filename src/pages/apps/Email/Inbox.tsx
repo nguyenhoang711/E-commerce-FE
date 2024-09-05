@@ -101,7 +101,6 @@ const EmailInbox = () => {
 	const [isModalOpen, toggleComposeModal] = useToggle(false)
 
 	const { emails, totalEmails, startIndex, endIndex, page, totalPages, totalUnreadEmails, getPrevPage, getNextPage, showAllEmails, showStarredEmails } = useInbox()
-
 	return (
 		<>
 			<PageBreadcrumb title="Email Inbox" subName="Apps" />

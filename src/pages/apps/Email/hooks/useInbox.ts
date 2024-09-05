@@ -39,7 +39,7 @@ export function useInbox() {
 		const endIdx = prevPage * pageSize
 		setPage(prevPage)
 		setStartIndex(startIdx)
-		setEndIndex(endIndex)
+		setEndIndex(endIdx)
 		setEmails(mails.slice(startIdx, endIdx))
 	}
 
