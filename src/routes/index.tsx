@@ -77,6 +77,7 @@ const Ratings = React.lazy(() => import('../pages/extended/Ratings'))
 const Player = React.lazy(() => import('../pages/extended/Player'))
 const Scrollbar = React.lazy(() => import('../pages/extended/Scrollbar'))
 const Tooltip = React.lazy(() => import('../pages/extended/Tooltip'))
+const VoucherPage = React.lazy(() => import('../components/Voucher/VoucherHomePage'))
 
 // icons
 const RemixIcons = React.lazy(() => import('../pages/ui/icons/RemixIcons'))
@@ -117,6 +118,7 @@ const Editors = React.lazy(() => import('../pages/ui/forms/Editors'))
 // tables
 const BasicTables = React.lazy(() => import('../pages/ui/tables/BasicTables'))
 const DataTables = React.lazy(() => import('../pages/ui/tables/DataTables'))
+const CustomTable = React.lazy(() => import('../pages/ui/tables/CustomTable'))
 
 // maps
 const GoogleMaps = React.lazy(() => import('../pages/ui/maps/GoogleMaps'))
@@ -504,6 +506,12 @@ const uiRoutes: RoutesProps = {
 					element: <Tooltip />,
 					route: PrivateRoute,
 				},
+				{
+					path: '/extended-ui/voucher',
+					name: 'Voucher',
+					element: <VoucherPage />,
+					route: PrivateRoute,
+				},
 			],
 		},
 		{
@@ -712,6 +720,12 @@ const uiRoutes: RoutesProps = {
 					path: '/ui/tables/data-tables',
 					name: 'Data Tables',
 					element: <DataTables />,
+					route: PrivateRoute,
+				},
+				{
+					path: '/ui/tables/custom-table',
+					name: 'Data Tables',
+					element: <CustomTable />,
 					route: PrivateRoute,
 				},
 			],

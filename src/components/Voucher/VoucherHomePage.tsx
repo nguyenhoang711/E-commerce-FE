@@ -9,6 +9,7 @@ import VoucherItem from './VoucherItem';
 import moment, { now } from 'moment';
 import CommonUtils from '../../utils/commonUtils';
 import storage from '@/Storage/Storage';
+import { vouchers } from './data';
 
 const VoucherHomePage = () => {
     const [dataVoucher, setdataVoucher] = useState([])
@@ -26,6 +27,11 @@ const VoucherHomePage = () => {
                 <img src={applyVoucherPhoto} alt=''></img>
             </div>
             <div className="voucher-list">
+                {(vouchers || []).map((voucher, _) => {
+                    return (
+                        <VoucherItem voucher={voucher} />
+                    )
+                })}
             </div>
         </div>
     );
