@@ -85,7 +85,7 @@ const Login = () => {
 
 			<AuthContainer>
 				<AuthLayout authTitle="Sign In" helpText="Enter your email address and password to access admin panel." bottomLinks={<BottomLink />}>
-					<VerticalForm<UserData> onSubmit={onSubmit} resolver={schemaResolver} defaultValues={{ username: 'attex@coderthemes.com', password: 'attex' }}>
+					<VerticalForm<UserData> onSubmit={onSubmit} resolver={schemaResolver} defaultValues={{ username: 'duyhoangaws@gmail.com', password: '123123a@' }}>
 						<FormInput label="Email Address" type="email" name="username" className="form-input" placeholder="Enter your email" containerClass="mb-6 space-y-2" labelClassName="font-semibold text-gray-500" required />
 
 						<FormInput label="Password" type="password" name="password" placeholder="Enter your password" className="form-input rounded-e-none" containerClass="mb-6 space-y-2" labelClassName="font-semibold text-gray-500" labelContainerClassName="flex justify-between items-center mb-2" required>

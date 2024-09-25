@@ -1,3 +1,3 @@
 import { login, logout, signup, forgotPassword } from './auth'
-
-export { login, logout, signup, forgotPassword }
+import { getAllProducts } from './product'
+export { login, logout, signup, forgotPassword, getAllProducts }

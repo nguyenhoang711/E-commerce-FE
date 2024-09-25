@@ -10,14 +10,14 @@ const ProductsPart = ({ products }: { products: Product[] }) => {
 					{(products || []).map((pro, _) => {
 						return (
 							<div className="card">
-								<img className="w-full h-auto rounded-t-md" src={pro.image} alt="Image Description" />
+								<img className="w-full h-auto rounded-t-md" src="#" alt="Image Description" />
 								<div className="p-6">
 									<h3 className="card-title">{pro.product_name}</h3>
 									<div className="pt-6 flex items-center gap-5 ">
 										<Link className="btn bg-primary text-white" to="#">
 											Xem chi tiết
 										</Link>
-										<p className="text-gray-800 dark:text-gray-400">{pro.price}</p>
+										<p className="text-gray-800 dark:text-gray-400">{pro.product_price}</p>
 									</div>
 								</div>
 							</div>

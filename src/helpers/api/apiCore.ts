@@ -5,7 +5,7 @@ import config from '../../config'
 
 // content type
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-axios.defaults.baseURL = config.API_URL
+axios.defaults.baseURL = config.API_CORE
 
 // intercepting to capture errors
 axios.interceptors.response.use(
@@ -47,7 +47,7 @@ const AUTH_SESSION_KEY = 'attex_user'
  * @param {*} token
  */
 const setAuthorization = (token: string | null) => {
-	if (token) axios.defaults.headers.common['Authorization'] = 'JWT ' + token
+	if (token) axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
 	else delete axios.defaults.headers.common['Authorization']
 }
 
@@ -178,7 +178,7 @@ class APICore {
 		}
 		const decoded: any = jwtDecode(user.token)
 		const currentTime = Date.now() / 1000
-		if (decoded.exp < currentTime) {
+		if (decoded.expiresIn < currentTime) {
 			console.warn('access token expired')
 			return false
 		} else {
@@ -206,6 +206,20 @@ class APICore {
 			this.setLoggedInUser({ token, ...user, ...modifiedUser })
 		}
 	}
+
+	setRememberMe = (isRememberMe: string) => {
+		localStorage.setItem('isRememberMe', isRememberMe);
+	};
+	
+	isRememberMe = () => {
+	
+		if (localStorage.getItem('isRememberMe') === null || localStorage.getItem('isRememberMe') === undefined) {
+			return true;
+		}
+	
+		// convert string to boolean
+		return JSON.parse(localStorage.getItem('isRememberMe') || 'false');
+	};
 }
 
 /*
@@ -213,9 +227,9 @@ Check if token available in session
 */
 const user = getUserFromCookie()
 if (user) {
-	const { token } = user
-	if (token) {
-		setAuthorization(token)
+	// const { token } = user
+	if (user) {
+		setAuthorization(user)
 	}
 }
 

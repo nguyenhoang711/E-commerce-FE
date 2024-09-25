@@ -8,8 +8,8 @@ export interface Product {
 	id: number
 	product_name: string
 	product_description: string
-	price: number
-	image: string
+	product_price: number
+	// image: string
 }
 
 const categories: string[] = [
@@ -25,36 +25,36 @@ const products: Product[] = [
         id: 1,
         product_name: "Quan ao",
         product_description: "abcd",
-        price: 100000,
-        image: Img1,
+        product_price: 100000,
+        // image: Img1,
     },
     {
         id: 2,
         product_name: "Quan ao",
         product_description: "abcd",
-        price: 100000,
-        image: Img2,
+        product_price: 100000,
+        // image: Img2,
     },
     {
         id: 3,
         product_name: "Quan ao",
         product_description: "abcd",
-        price: 100000,
-        image: Img3,
+        product_price: 100000,
+        // image: Img3,
     },
     {
         id: 4,
         product_name: "Quan ao",
         product_description: "abcd",
-        price: 100000,
-        image: Img4,
+        product_price: 100000,
+        // image: Img4,
     },
     {
         id: 5,
         product_name: "Quan ao",
         product_description: "abcd",
-        price: 100000,
-        image: Img2,
+        product_price: 100000,
+        // image: Img2,
     }
 ]
 

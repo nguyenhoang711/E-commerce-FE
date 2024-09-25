@@ -33,7 +33,9 @@ const api = new APICore()
 function* login({ payload: { username, password } }: UserData): SagaIterator {
 	try {
 		const response = yield call(loginApi, { username, password })
-		const user = response.data
+		const user = response.data.data
+		console.log(user)
+		console.log(user['token'])
 		// NOTE - You can change this according to response format from your api
 		api.setLoggedInUser(user)
 		setAuthorization(user['token'])
