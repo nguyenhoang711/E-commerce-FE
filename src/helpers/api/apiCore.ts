@@ -74,6 +74,10 @@ class APICore {
 		return response
 	}
 
+	getWithBody = (url: string, params: any) => {
+		return axios.get(url, params)
+	}
+
 	getFile = (url: string, params: any) => {
 		let response
 		if (params) {
