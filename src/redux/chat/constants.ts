@@ -1,0 +1,6 @@
+export enum ChatActionTypes {
+	API_RESPONSE_SUCCESS = '@@chat/API_RESPONSE_SUCCESS',
+	API_RESPONSE_ERROR = '@@chat/API_RESPONSE_ERROR',
+
+    GET_MESSAGES = '@@chat/GET_MESSAGES'
+}

@@ -5,7 +5,7 @@ import { SagaIterator } from '@redux-saga/core'
 import { APICore, setAuthorization } from '../../helpers/api/apiCore'
 
 // helpers
-import { login as loginApi, logout as logoutApi, signup as signupApi, forgotPassword as forgotPasswordApi } from '../../helpers/api/auth'
+import { login as loginApi, logout as logoutApi, signup as signupApi, forgotPassword as forgotPasswordApi, getMessages as getMessagesApi } from '../../helpers/api/auth'
 
 // actions
 import { authApiResponseSuccess, authApiResponseError } from './actions'
@@ -18,7 +18,8 @@ interface UserData {
 		username: string
 		password: string
 		fullname: string
-		email: string
+		email: string,
+		from: string
 	}
 	type: string
 }
@@ -34,10 +35,9 @@ function* login({ payload: { username, password } }: UserData): SagaIterator {
 	try {
 		const response = yield call(loginApi, { username, password })
 		const user = response.data.data
-		console.log(user)
-		// NOTE - You can change this according to response format from your api
 		api.setLoggedInUser(user)
 		setAuthorization(user['token'])
+		// NOTE - You can change this according to response format from your api
 		yield put(authApiResponseSuccess(AuthActionTypes.LOGIN_USER, user))
 	} catch (error: any) {
 		yield put(authApiResponseError(AuthActionTypes.LOGIN_USER, error))
@@ -76,6 +76,18 @@ function* signup({ payload: { fullname, email, password } }: UserData): SagaIter
 	}
 }
 
+function* getMessage({ payload: { from } }: UserData): SagaIterator {
+	try {
+		const response = yield call(getMessagesApi, { from })
+		// const response = yield call(getAllMessagesById, { from })
+		// console.log(response)
+		const messeges = response.data.data
+		yield put(authApiResponseSuccess(AuthActionTypes.GET_MESSAGE, messeges))
+	} catch (error: any) {
+		yield put(authApiResponseError(AuthActionTypes.GET_MESSAGE, error))
+	}
+}
+
 function* forgotPassword({ payload: { username } }: UserData): SagaIterator {
 	try {
 		const response = yield call(forgotPasswordApi, { username })
@@ -96,12 +108,16 @@ export function* watchSignup(): any {
 	yield takeEvery(AuthActionTypes.SIGNUP_USER, signup)
 }
 
+export function* watchGetMessage(): any {
+	yield takeEvery(AuthActionTypes.GET_MESSAGE, getMessage)
+}
+
 export function* watchForgotPassword(): any {
 	yield takeEvery(AuthActionTypes.FORGOT_PASSWORD, forgotPassword)
 }
 
 function* authSaga() {
-	yield all([fork(watchLoginUser), fork(watchLogout), fork(watchSignup), fork(watchForgotPassword)])
+	yield all([fork(watchLoginUser), fork(watchLogout), fork(watchSignup), fork(watchForgotPassword), fork(watchGetMessage)])
 }
 
 export default authSaga

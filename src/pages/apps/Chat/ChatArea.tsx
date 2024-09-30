@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { Key, useCallback, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Tippy from '@tippyjs/react'
 import SimpleBar from 'simplebar-react'
+import { useDispatch, useSelector } from 'react-redux'
 
 // images
 import avatar1 from '@/assets/images/users/avatar-1.jpg'
@@ -18,15 +19,17 @@ import { PopoverLayout } from '../../../components/HeadlessUI'
 
 // style
 import 'tippy.js/dist/tippy.css'
+import { AppDispatch, RootState } from '@/redux/store'
+import { getMessage } from '@/redux/actions'
+import { APICore } from '@/helpers/api/apiCore'
 
 const UserMessage = ({ message, toUser }: { message: ChatMessage; toUser: ChatUser }) => {
 	const PopoverToggle = () => <i className="ri-more-2-fill text-lg" />
-
 	return (
-		<div className={`${message.from.id === toUser.id ? 'flex-row-reverse items-start text-end' : 'items-start text-start'} flex gap-3 group`}>
+		<div className={`${message.from.name !== toUser.name ? 'flex-row-reverse items-start text-end' : 'items-start text-start'} flex gap-3 group`}>
 			<div className="text-center">
 				<img src={message.from.avatar} className="rounded-md h-8" />
-				<p className="text-xs pt-0.5">{message.sendOn}</p>
+				{/* <p className="text-xs pt-0.5">{message.sendOn}</p> */}
 			</div>
 
 			{message.message.type === 'text' && (
@@ -107,14 +110,16 @@ interface ChatAreaProps {
 	chatToggler: () => void
 }
 
-const ChatArea = ({ selectedUser, chatToggler }: ChatAreaProps) => {
+
+const ChatArea = ({selectedUser, chatToggler }: ChatAreaProps) => {
+	const dispatch = useDispatch<AppDispatch>()
 	const [userMessages, setUserMessages] = useState<ChatMessage[]>([])
 
 	const [toUser] = useState<ChatUser>({
-		id: 9,
-		name: 'Tosha Minner',
-		avatar: avatar1,
-		email: 'support@coderthemes.com',
+		id: '66f508e2f98883a8bc8c7ab9',
+		name: 'Attex Shop',
+		avatar: 'https://res.cloudinary.com/penguincdn/image/upload/v1727335247/avatar-9_crj2kc.jpg',
+		email: 'duyhoangaws@gmail.com',
 		phone: '+1 456 9595 9594',
 		location: 'California, USA',
 		languages: 'English, German, Spanish',
@@ -124,17 +129,21 @@ const ChatArea = ({ selectedUser, chatToggler }: ChatAreaProps) => {
 	/*
 	 *  Fetches the messages for selected user
 	 */
-	const getMessagesForUser = useCallback(() => {
-		if (selectedUser) {
-			setTimeout(() => {
-				setUserMessages([...messages].filter((m) => (m.to.id === toUser.id && m.from.id === selectedUser.id) || (toUser.id === m.from.id && m.to.id === selectedUser.id)))
-			}, 750)
-		}
-	}, [selectedUser, toUser])
+	// const getMessagesForUser = useCallback(() => {
+	// 	if (selectedUser) {
+	// 		setTimeout(() => {
+	// 			setUserMessages([...messages].filter((m) => (m.to.id === toUser.id && m.from.id === selectedUser.id) || (toUser.id === m.from.id && m.to.id === selectedUser.id)))
+	// 		}, 750)
+	// 	}
+	// }, [selectedUser, toUser])
+
+	const { messages } = useSelector((state: RootState) => ({
+		messages: state.Auth.messages
+	}))
 
 	useEffect(() => {
-		getMessagesForUser()
-	}, [getMessagesForUser])
+		dispatch(getMessage(selectedUser.id))
+	}, [])
 
 	/*
 	 * form validation schema
@@ -167,7 +176,7 @@ const ChatArea = ({ selectedUser, chatToggler }: ChatAreaProps) => {
 			from: toUser,
 			to: selectedUser,
 			message: { type: 'text', value: values.newMessage },
-			sendOn: new Date().getHours() + ':' + new Date().getMinutes(),
+			// sendOn: new Date().getHours() + ':' + new Date().getMinutes(),
 		})
 		setTimeout(() => {
 			const otherNewMessages = [...newUserMessages]
@@ -176,7 +185,7 @@ const ChatArea = ({ selectedUser, chatToggler }: ChatAreaProps) => {
 				from: selectedUser,
 				to: toUser,
 				message: { type: 'text', value: values.newMessage },
-				sendOn: new Date().getHours() + ':' + new Date().getMinutes(),
+				// sendOn: new Date().getHours() + ':' + new Date().getMinutes(),
 			})
 			setUserMessages(otherNewMessages)
 		}, 1000)
@@ -237,7 +246,7 @@ const ChatArea = ({ selectedUser, chatToggler }: ChatAreaProps) => {
 
 				<SimpleBar className=" p-6 h-full lg:h-[calc(100vh-400px)]">
 					<div className="space-y-4">
-						{(userMessages || []).map((message, idx) => {
+						{(messages || []).map((message: ChatMessage, idx: Key | null | undefined) => {
 							return <UserMessage key={idx} message={message} toUser={toUser} />
 						})}
 

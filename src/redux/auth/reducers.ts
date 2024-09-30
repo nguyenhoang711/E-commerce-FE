@@ -1,4 +1,5 @@
 // apicore
+import { ChatMessage } from '@/pages/apps/Chat/data'
 import { APICore } from '../../helpers/api/apiCore'
 
 // constants
@@ -37,6 +38,7 @@ interface UserData {
 
 interface State {
 	user?: UserData | {}
+	messages?: ChatMessage[] | {}
 	loading?: boolean
 	value?: boolean
 }
@@ -64,6 +66,14 @@ const Auth = (state: State = INIT_STATE, action: any): any => {
 					return {
 						...state,
 						user: null,
+						loading: false,
+						userLogout: true,
+					}
+				}
+				case AuthActionTypes.GET_MESSAGE: {
+					return {
+						...state,
+						messages: action.payload.data,
 						loading: false,
 						userLogout: true,
 					}
@@ -98,6 +108,13 @@ const Auth = (state: State = INIT_STATE, action: any): any => {
 						loading: false,
 					}
 				}
+				case AuthActionTypes.GET_MESSAGE: {
+					return {
+						...state,
+						error: action.payload.error,
+						loading: false,
+					}
+				}
 				case AuthActionTypes.FORGOT_PASSWORD: {
 					return {
 						...state,
@@ -111,6 +128,8 @@ const Auth = (state: State = INIT_STATE, action: any): any => {
 			}
 
 		case AuthActionTypes.LOGIN_USER:
+			return { ...state, loading: true, userLoggedIn: false }
+		case AuthActionTypes.GET_MESSAGE:
 			return { ...state, loading: true, userLoggedIn: false }
 		case AuthActionTypes.LOGOUT_USER:
 			return { ...state, loading: true, userLogout: false }

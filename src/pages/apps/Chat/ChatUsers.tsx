@@ -6,7 +6,8 @@ import SimpleBar from 'simplebar-react'
 import avatar1 from '@/assets/images/users/avatar-1.jpg'
 
 // dummy data
-import { ChatUser, users } from './data'
+// import { ChatUser, users } from './data'
+import { ChatUser } from './data'
 
 // components
 import { PopoverLayout } from '../../../components/HeadlessUI'
@@ -19,15 +20,15 @@ interface ChatUsersProps {
 const ChatUsers = ({ onUserSelect, chatToggler }: ChatUsersProps) => {
 	const PopoverToggle = () => <i className="ri-settings-5-line text-xl" />
 
-	const [user, setUser] = useState<ChatUser[]>([...users])
+	// const [user, setUser] = useState<ChatUser[]>([...users])
 
 	/**
 	 * Search the user
 	 * @param {*} text
 	 */
-	const search = (text: string) => {
-		setUser(text ? [...users].filter((u) => u.name!.toLowerCase().indexOf(text.toLowerCase()) >= 0) : [...users])
-	}
+	// const search = (text: string) => {
+	// 	setUser(text ? [...users].filter((u) => u.name!.toLowerCase().indexOf(text.toLowerCase()) >= 0) : [...users])
+	// }
 
 	/**
 	 * Activates the user
@@ -73,7 +74,7 @@ const ChatUsers = ({ onUserSelect, chatToggler }: ChatUsersProps) => {
 					</PopoverLayout>
 				</div>
 
-				<div className="mb-3">
+				{/* <div className="mb-3">
 					<form>
 						<div className="relative flex rounded-md">
 							<input onKeyUp={(e: any) => search(e.target.value)} type="text" id="trailing-button-add-on-with-icon-and-button" name="trailing-button-add-on-with-icon-and-button" className="form-input form-input-light ps-9" placeholder="People, groups & messages..." />
@@ -82,7 +83,7 @@ const ChatUsers = ({ onUserSelect, chatToggler }: ChatUsersProps) => {
 							</div>
 						</div>
 					</form>
-				</div>
+				</div> */}
 
 				<h6 className="fs-13 text-muted text-uppercase mb-3">Group Chats</h6>
 				<div className="flex flex-col ">
@@ -102,7 +103,7 @@ const ChatUsers = ({ onUserSelect, chatToggler }: ChatUsersProps) => {
 				<h6 className="fs-13 text-muted text-uppercase px-6 mb-4">Contacts</h6>
 
 				<SimpleBar className="h-[calc(100vh-400px)] lg:h-[calc(100vh-526px)]">
-					<div className="">
+					{/* <div className="">
 						{(user || []).map((user, idx) => {
 							return (
 								<Link
@@ -129,7 +130,7 @@ const ChatUsers = ({ onUserSelect, chatToggler }: ChatUsersProps) => {
 								</Link>
 							)
 						})}
-					</div>
+					</div> */}
 				</SimpleBar>
 			</div>
 		</div>
