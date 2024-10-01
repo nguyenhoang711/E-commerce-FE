@@ -5,13 +5,14 @@ import { SagaIterator } from '@redux-saga/core'
 import { APICore, setAuthorization } from '../../helpers/api/apiCore'
 
 // helpers
-import { login as loginApi, logout as logoutApi, signup as signupApi, forgotPassword as forgotPasswordApi, getMessages as getMessagesApi } from '../../helpers/api/auth'
+import { login as loginApi, logout as logoutApi, signup as signupApi, forgotPassword as forgotPasswordApi, getMessages as getMessagesApi , sendMessage as sendMessageApi} from '../../helpers/api/auth'
 
 // actions
 import { authApiResponseSuccess, authApiResponseError } from './actions'
 
 // constants
 import { AuthActionTypes } from './constants'
+import { ChatMessage } from '@/pages/apps/Chat/data'
 
 interface UserData {
 	payload: {
@@ -19,7 +20,9 @@ interface UserData {
 		password: string
 		fullname: string
 		email: string,
-		from: string
+		from: string,
+		to: string,
+		value: string
 	}
 	type: string
 }
@@ -88,6 +91,17 @@ function* getMessage({ payload: { from } }: UserData): SagaIterator {
 	}
 }
 
+function* sendMessage({ payload: { from, to, value } }: UserData): SagaIterator {
+	try {
+
+		const response = yield call(sendMessageApi, { from, to, value })
+		const message: ChatMessage = response.data.data
+		yield put(authApiResponseSuccess(AuthActionTypes.SEND_MESSAGE, message))
+	} catch (error: any) {
+		yield put(authApiResponseError(AuthActionTypes.GET_MESSAGE, error))
+	}
+}
+
 function* forgotPassword({ payload: { username } }: UserData): SagaIterator {
 	try {
 		const response = yield call(forgotPasswordApi, { username })
@@ -112,12 +126,16 @@ export function* watchGetMessage(): any {
 	yield takeEvery(AuthActionTypes.GET_MESSAGE, getMessage)
 }
 
+export function* watchSendMessage(): any {
+	yield takeEvery(AuthActionTypes.SEND_MESSAGE, sendMessage)
+}
+
 export function* watchForgotPassword(): any {
 	yield takeEvery(AuthActionTypes.FORGOT_PASSWORD, forgotPassword)
 }
 
 function* authSaga() {
-	yield all([fork(watchLoginUser), fork(watchLogout), fork(watchSignup), fork(watchForgotPassword), fork(watchGetMessage)])
+	yield all([fork(watchLoginUser), fork(watchLogout), fork(watchSignup), fork(watchForgotPassword), fork(watchGetMessage), fork(watchSendMessage)])
 }
 
 export default authSaga

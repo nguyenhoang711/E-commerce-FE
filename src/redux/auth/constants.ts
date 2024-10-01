@@ -8,6 +8,7 @@ export enum AuthActionTypes {
 	FORGOT_PASSWORD = '@@auth/FORGOT_PASSWORD',
 	FORGOT_PASSWORD_CHANGE = '@@auth/FORGOT_PASSWORD_CHANGE',
 	GET_MESSAGE = '@@auth/GET_MESSAGE',
+	SEND_MESSAGE = '@@auth/SEND_MESSAGE',
 
 	RESET = '@@auth/RESET',
 }

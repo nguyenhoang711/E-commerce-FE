@@ -9,6 +9,7 @@ const api = new APICore()
 
 const INIT_STATE = {
 	user: api.getLoggedInUser(),
+	messages: [],
 	loading: false,
 }
 
@@ -38,7 +39,7 @@ interface UserData {
 
 interface State {
 	user?: UserData | {}
-	messages?: ChatMessage[] | {}
+	messages: ChatMessage[]
 	loading?: boolean
 	value?: boolean
 }
@@ -75,7 +76,15 @@ const Auth = (state: State = INIT_STATE, action: any): any => {
 						...state,
 						messages: action.payload.data,
 						loading: false,
-						userLogout: true,
+					}
+				}
+				case AuthActionTypes.SEND_MESSAGE: {
+					const clone: ChatMessage[] = [...state.messages]
+					clone.push(action.payload.data as ChatMessage)
+					return {
+						...state,
+						messages: clone,
+						loading: false,
 					}
 				}
 				case AuthActionTypes.FORGOT_PASSWORD: {
@@ -109,6 +118,13 @@ const Auth = (state: State = INIT_STATE, action: any): any => {
 					}
 				}
 				case AuthActionTypes.GET_MESSAGE: {
+					return {
+						...state,
+						error: action.payload.error,
+						loading: false,
+					}
+				}
+				case AuthActionTypes.SEND_MESSAGE: {
 					return {
 						...state,
 						error: action.payload.error,

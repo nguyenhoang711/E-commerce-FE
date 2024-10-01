@@ -20,8 +20,7 @@ import { PopoverLayout } from '../../../components/HeadlessUI'
 // style
 import 'tippy.js/dist/tippy.css'
 import { AppDispatch, RootState } from '@/redux/store'
-import { getMessage } from '@/redux/actions'
-import { APICore } from '@/helpers/api/apiCore'
+import { getMessage, sendMessage } from '@/redux/actions'
 
 const UserMessage = ({ message, toUser }: { message: ChatMessage; toUser: ChatUser }) => {
 	const PopoverToggle = () => <i className="ri-more-2-fill text-lg" />
@@ -112,8 +111,8 @@ interface ChatAreaProps {
 
 
 const ChatArea = ({selectedUser, chatToggler }: ChatAreaProps) => {
-	const dispatch = useDispatch<AppDispatch>()
 	const [userMessages, setUserMessages] = useState<ChatMessage[]>([])
+	const dispatch = useDispatch<AppDispatch>()
 
 	const [toUser] = useState<ChatUser>({
 		id: '66f508e2f98883a8bc8c7ab9',
@@ -126,16 +125,6 @@ const ChatArea = ({selectedUser, chatToggler }: ChatAreaProps) => {
 		groups: 'Work, Friends',
 	})
 
-	/*
-	 *  Fetches the messages for selected user
-	 */
-	// const getMessagesForUser = useCallback(() => {
-	// 	if (selectedUser) {
-	// 		setTimeout(() => {
-	// 			setUserMessages([...messages].filter((m) => (m.to.id === toUser.id && m.from.id === selectedUser.id) || (toUser.id === m.from.id && m.to.id === selectedUser.id)))
-	// 		}, 750)
-	// 	}
-	// }, [selectedUser, toUser])
 
 	const { messages } = useSelector((state: RootState) => ({
 		messages: state.Auth.messages
@@ -143,7 +132,11 @@ const ChatArea = ({selectedUser, chatToggler }: ChatAreaProps) => {
 
 	useEffect(() => {
 		dispatch(getMessage(selectedUser.id))
-	}, [])
+	}, [dispatch, selectedUser.id])
+
+	useEffect(() => {
+		setUserMessages(messages)
+	}, [messages])
 
 	/*
 	 * form validation schema
@@ -169,27 +162,17 @@ const ChatArea = ({selectedUser, chatToggler }: ChatAreaProps) => {
 	/**
 	 * sends the chat message
 	 */
-	const sendChatMessage = (values: { newMessage?: string }) => {
+	const sendChatMessage = (values: { newMessage: string }) => {
 		const newUserMessages = [...userMessages]
 		newUserMessages.push({
 			id: userMessages.length + 1,
-			from: toUser,
-			to: selectedUser,
+			from: selectedUser,
+			to: toUser,
 			message: { type: 'text', value: values.newMessage },
 			// sendOn: new Date().getHours() + ':' + new Date().getMinutes(),
 		})
-		setTimeout(() => {
-			const otherNewMessages = [...newUserMessages]
-			otherNewMessages.push({
-				id: userMessages.length + 1,
-				from: selectedUser,
-				to: toUser,
-				message: { type: 'text', value: values.newMessage },
-				// sendOn: new Date().getHours() + ':' + new Date().getMinutes(),
-			})
-			setUserMessages(otherNewMessages)
-		}, 1000)
 		setUserMessages(newUserMessages)
+		dispatch(sendMessage(selectedUser.id, toUser.id, values.newMessage))
 		reset()
 	}
 
@@ -246,7 +229,7 @@ const ChatArea = ({selectedUser, chatToggler }: ChatAreaProps) => {
 
 				<SimpleBar className=" p-6 h-full lg:h-[calc(100vh-400px)]">
 					<div className="space-y-4">
-						{(messages || []).map((message: ChatMessage, idx: Key | null | undefined) => {
+						{userMessages.map((message: ChatMessage, idx: number) => {
 							return <UserMessage key={idx} message={message} toUser={toUser} />
 						})}
 

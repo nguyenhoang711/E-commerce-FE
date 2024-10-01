@@ -13,6 +13,11 @@ function getMessages(params: { from: string }) {
 	return api.get(`${baseUrl}`, params)
 }
 
+function sendMessage(params: { from: string, to: string, value: string }) {
+	const baseUrl = '/api/v1/chat'
+	return api.create(`${baseUrl}`, params)
+}
+
 function logout() {
 	const baseUrl = '/logout/'
 	return api.create(`${baseUrl}`, {})
@@ -28,4 +33,4 @@ function forgotPassword(params: { username: string }) {
 	return api.create(`${baseUrl}`, params)
 }
 
-export { login, logout, signup, forgotPassword, getMessages }
+export { login, logout, signup, forgotPassword, getMessages, sendMessage }

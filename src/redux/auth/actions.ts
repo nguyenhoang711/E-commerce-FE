@@ -2,7 +2,7 @@
 import { AuthActionTypes } from './constants'
 
 export interface AuthActionType {
-	type: AuthActionTypes.API_RESPONSE_SUCCESS | AuthActionTypes.API_RESPONSE_ERROR | AuthActionTypes.FORGOT_PASSWORD | AuthActionTypes.FORGOT_PASSWORD_CHANGE | AuthActionTypes.LOGIN_USER | AuthActionTypes.LOGOUT_USER | AuthActionTypes.RESET | AuthActionTypes.SIGNUP_USER | AuthActionTypes.GET_MESSAGE
+	type: AuthActionTypes.API_RESPONSE_SUCCESS | AuthActionTypes.API_RESPONSE_ERROR | AuthActionTypes.FORGOT_PASSWORD | AuthActionTypes.FORGOT_PASSWORD_CHANGE | AuthActionTypes.LOGIN_USER | AuthActionTypes.LOGOUT_USER | AuthActionTypes.RESET | AuthActionTypes.SIGNUP_USER | AuthActionTypes.GET_MESSAGE | AuthActionTypes.SEND_MESSAGE
 	payload: {} | string
 }
 
@@ -40,6 +40,11 @@ export const logoutUser = (): AuthActionType => ({
 export const getMessage = (from: string): AuthActionType => ({
 	type: AuthActionTypes.GET_MESSAGE,
 	payload: { from},
+})
+
+export const sendMessage = (from: string, to: string, value: string): AuthActionType => ({
+	type: AuthActionTypes.SEND_MESSAGE,
+	payload: { from, to, value},
 })
 
 export const signupUser = (fullname: string, email: string, password: string): AuthActionType => ({
